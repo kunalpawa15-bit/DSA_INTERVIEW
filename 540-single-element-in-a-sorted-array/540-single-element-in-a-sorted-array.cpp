@@ -2,22 +2,22 @@ class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
         
-        map<int,int>m;
-        int ans=0;
-        int n = nums.size();
-        for(int i=0;i<n;i++)
+        int i = 0;
+        int j = nums.size()-2;
+        
+        while(i<=j)
         {
-            m[nums[i]]++;
-        }
-        for(auto x:m)
-        {
-            if(x.second!=2)
+            int mid = i + (j-i)/2;
+            if(nums[mid]==nums[mid^1])
             {
-                ans = x.first;
+                i = mid+1;
+            }
+            else
+            {
+                j = mid-1;
             }
         }
-        
-        return ans;
+        return nums[i];
         
     }
 };
