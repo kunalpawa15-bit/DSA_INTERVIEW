@@ -1,35 +1,67 @@
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int n = nums.size();
+        
+        int first = bs(nums,target);
+        int last = bs2(nums,target);
         
         vector<int>v;
-             
-        int a =  lower_bound(nums.begin(),nums.end(),target)-nums.begin();
-        int b = upper_bound(nums.begin(),nums.end(),target) - nums.begin();
-        b--;
+        v.push_back(first);
+        v.push_back(last);
+        return v;
         
-        if(a!=n && nums[a]==target)
+    }
+    int bs(vector<int>nums,int x)
+    {
+        int l=0;
+        int h = nums.size()-1;
+        int res=-1;
+        int mid;
+        while(l<=h)
         {
-            v.push_back(a);
+            mid = l + (h-l)/2;
+            if(nums[mid]==x)
+            {
+                res = mid;
+                h = mid-1;
+            }
+            else if(nums[mid]>x)
+            {
+                h = mid-1;
+            }
+            else
+            {
+                l = mid+1;
+            }
         }
-        else{
-            v.push_back(-1);
-        }
-    
-        if(b>=0 && nums[b]==target)
+        
+        return res;
+        
+    }
+     int bs2(vector<int>nums,int x)
+    {
+        int l=0;
+        int h = nums.size()-1;
+        int res=-1;
+         int mid;
+        while(l<=h)
         {
-            v.push_back(b);
+            mid = l + (h-l)/2;
+            if(nums[mid]==x)
+            {
+                res = mid;
+                l = mid+1;
+            }
+            else if(nums[mid]>x)
+            {
+                h = mid-1;
+            }
+            else
+            {
+                l = mid+1;
+            }
         }
-         else
-         {
-             v.push_back(-1);
-         }
-    
-    
-    return v;
         
-        
-        
+        return res;     
     }
 };
