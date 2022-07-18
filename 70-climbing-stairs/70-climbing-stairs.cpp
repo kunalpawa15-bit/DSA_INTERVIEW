@@ -2,23 +2,15 @@ class Solution {
 public:
     int climbStairs(int n) {
         vector<int>v(n+1,-1);
-       return f(n,v);
+        return f(n,v);
+        
         
     }
-    
-private:
-    int f(int n,vector<int>&v)
+    int f(int ind,vector<int>&v)
     {
-         
-        if(n==0)
-            return 1;
-        if(n==1)return 1;
         
-        if(v[n]!=-1)return v[n];
-        
-        int l = f(n-1,v);
-        int r = f(n-2,v);
-        
-        return v[n] = l+r;
+        if(ind==0 || ind==1)return 1;
+        if(v[ind]!=-1)return v[ind];
+        return v[ind] = f(ind-1,v) + f(ind-2,v);
     }
 };
