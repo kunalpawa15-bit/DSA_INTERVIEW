@@ -1,8 +1,6 @@
 class Solution {
 public:
-    
-    
-     int MAH(vector<int>& heights) {
+    int MAH(vector<int>& heights) {
         int n = heights.size();
         stack<int> st;
         vector<int> nsl(n);
@@ -44,19 +42,17 @@ public:
         return area;
     }
     
-    
     int maximalRectangle(vector<vector<char>>& matrix) {
         
         if(matrix.size()==0)return 0;
         int n = matrix.size();
         int m = matrix[0].size();
+        
         vector<int>v(m);
         for(int j=0;j<m;j++)
         {
-           if(matrix[0][j]=='1')
-           {
-               v[j] = 1;
-           }
+            if(matrix[0][j]=='1')
+                v[j]=1;
         }
         int maxi = -1;
         for(int i=1;i<n;i++)
@@ -65,25 +61,13 @@ public:
             for(int j=0;j<m;j++)
             {
                 if(matrix[i][j]=='0')
-                {
                     v[j]=0;
-                }
                 else
-                {
                     v[j] = v[j]+1;
-                }
             }
         }
-
-         maxi = max(maxi,MAH(v));
-        return maxi;
         
+        maxi = max(maxi,MAH(v));
+        return maxi;
     }
 };
-
-
-
-
-
-
-    
