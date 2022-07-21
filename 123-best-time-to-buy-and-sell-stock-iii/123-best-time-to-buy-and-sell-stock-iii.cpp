@@ -2,7 +2,8 @@ class Solution {
 public:
     int maxProfit(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
+       vector<vector<int>>curr(2,vector<int>(3,0));
+        vector<vector<int>>prev(2,vector<int>(3,0));
        /* for(int i=0;i<n;i++)
         {
             for(int buy=0;buy<=1;buy++)
@@ -25,19 +26,20 @@ public:
                 {
                     if(buy)
                     {
-                          dp[i][buy][cap] = max((-nums[i] + dp[i+1][0][cap]) , (0+dp[i+1][1][cap]));
+                          curr[buy][cap] = max((-nums[i] + prev[0][cap]) , (0+prev[1][cap]));
                     }
                     else
                     {
-                          dp[i][buy][cap] = max((nums[i] + dp[i+1][1][cap-1]) , (0,dp[i+1][0][cap]));
+                          curr[buy][cap] = max((nums[i] + prev[1][cap-1]) , (0,prev[0][cap]));
                     }
                 }
             }
+            prev = curr;
         }
         
          
         
-        return dp[0][1][2] ;
+        return prev[1][2] ;
         
         
     }
