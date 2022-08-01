@@ -26,7 +26,8 @@ public:
                     ans = min(ans,1+f(pos,i,nums,dp));
                 }
             }
-            return ans;
+            dp[pos][lane] = ans;
+            return dp[pos][lane];
         }
     }
 };
