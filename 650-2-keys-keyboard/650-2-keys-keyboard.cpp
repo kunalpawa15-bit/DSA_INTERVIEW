@@ -11,6 +11,6 @@ public:
         if(c>n)return 1e9;
         
         if(dp[c][v]!=-1)return dp[c][v];
-        return min(1+f(c+v,v,n,dp),2+f(c+c,c,n,dp));
+        return dp[c][v] = min(1+f(c+v,v,n,dp),2+f(c+c,c,n,dp));
     }
 };
