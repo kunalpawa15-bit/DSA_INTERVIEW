@@ -1,21 +1,62 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        if(s.size() == 0) return s;
-        stack<string> stack;
+        int n = s.length();
+        if(n==0)return s;
         string result;
-        for(int i=0; i<s.size(); i++) {
+        stack<string>st;
+        for(int i=0;i<n;i++)
+        {
             string word;
-            if(s[i]==' ') continue; 
-            while(i<s.size() && s[i]!=' ' ) { 
-                word += s[i]; i++;
+            if(s[i]== ' ')
+                continue;
+            while(i<s.size() && s[i]!=' ')
+            {
+                word += s[i];
+                i++;
             }
-            stack.push(word); 
+            
+            st.push(word);
         }
-        while(!stack.empty()) {
-            result += stack.top(); stack.pop();
-            if(!stack.empty()) result += " ";
+        
+        while(!st.empty())
+        {
+            result = result + st.top();
+            st.pop();
+            if(!st.empty())result+=" ";
         }
+        
         return result;
     }
 };
+
+// class Solution {
+// public:
+    
+    
+//     // maine kiya
+//     string reverseWords(string st) {
+//         int n = st.length();
+//         stack<string>s;
+//         string ans = "";
+//         for(int i=0;i<n;i++)
+//         {
+//             ans += st[i];
+//             if(st[i]==' ' || i==n-1)
+//             {
+//                 s.push(ans);
+//                 ans = "";
+//             }
+//         }
+//         s.push(ans);
+        
+//         string res = "";
+//         while(!s.empty())
+//         {
+//             res += s.top();
+//             s.pop();
+//         }
+        
+//         return res;
+//     }
+// };
