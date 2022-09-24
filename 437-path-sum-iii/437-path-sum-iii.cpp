@@ -11,21 +11,31 @@
  */
 class Solution {
 public:
+    int pathSum(TreeNode* root, int target) {
+        int count=0,sum=0;
+        map<long long,long long>m;
+        m.insert({0,1});
+        f(root,sum,target,m,count);
+        return count;
+    }
+    void f(TreeNode* root,long long sum,int target,map<long long ,long long>&m,int &count)
+    {
+        if(!root)return ;
+        sum = sum + root->val;
+        if(m.find(sum-target)!=m.end())
+            count = count + m[sum-target];
+        m[sum]++;
+        
+        f(root->left,sum,target,m,count);
+        f(root->right,sum,target,m,count);
+        
+        m[sum]--;
+        sum -= root->val;
     
-int treeSum(TreeNode* root, long long sum, long long targetSum)
-{
-    if(!root) return 0;
-    
-    sum += (long long) root->val;
-    
-    return treeSum(root->left, sum, targetSum) + treeSum(root->right, sum, targetSum) + ((sum == targetSum) ? 1 : 0); 
-    
-} 
-
-int pathSum(TreeNode* root, int targetSum) {
-   
-    if(!root) return 0;
-    
-    return treeSum(root, 0, targetSum) + pathSum(root->left, targetSum) + pathSum(root->right, targetSum);
-}
+    }
 };
+
+
+// Time Complexity: O(N)
+// Space Complexity: O(N)
+
