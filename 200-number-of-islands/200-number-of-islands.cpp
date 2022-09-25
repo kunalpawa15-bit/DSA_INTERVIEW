@@ -1,35 +1,51 @@
 class Solution {
-public:
+public:   
+    void bfs(int r, int c, vector<vector<int>>& vis, vector<vector<char>> grid)
+    {
+        int n=grid.size();
+        int m=grid[0].size();
+        vis[r][c]=1;
+        queue<pair<int,int>> q;
+        q.push({r,c});
+        while(!q.empty())
+        {
+            r = q.front().first;
+            c = q.front().second;
+            q.pop();
+            for(int i=-1;i<=1;i++)
+            {
+                for(int j=-1;j<=1;j++)
+                {
+                    if(abs(i)==abs(j)){continue;}
+                    int newr = r + i;
+                    int newc = c + j;
+                    if(newr>=0 && newr<n && newc>=0 && newc<m && 
+                       grid[newr][newc]=='1' && vis[newr][newc]==0)
+                    {
+                        q.push({newr,newc});
+                        vis[newr][newc]=1;
+                    }
+                }
+            }
+        }
+    }
+    
     int numIslands(vector<vector<char>>& grid) {
-        
-        int n = grid.size();
-        int count=0;
-        if(n==0)return 0;
-        int m = grid[0].size();
-        
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>> vis(n, vector<int> (m,0));
+        int ans=0;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if(grid[i][j]=='1')
+                if(grid[i][j]=='1' && vis[i][j]==0)
                 {
-                    dfs(grid,i,j,n,m);
-                    count += 1;
+                    ans++;
+                    bfs(i,j,vis,grid);
                 }
             }
         }
-        
-        return count;
-    }
-    
-    void dfs(vector<vector<char>>&grid,int x,int y,int n,int m)
-    {
-        if(x<0 || y<0 || x>=n || y>=m || grid[x][y]!='1')return;
-        grid[x][y] = '2';
-        
-        dfs(grid,x+1,y,n,m);
-        dfs(grid,x,y+1,n,m);
-        dfs(grid,x-1,y,n,m);
-        dfs(grid,x,y-1,n,m);
+      return ans;  
     }
 };
